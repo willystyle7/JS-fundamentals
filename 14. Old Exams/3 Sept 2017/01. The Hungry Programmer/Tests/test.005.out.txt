@@ -1,0 +1,3 @@
+bacon eaten
+Meals left: veggies, chicken
+Meals eaten: 1

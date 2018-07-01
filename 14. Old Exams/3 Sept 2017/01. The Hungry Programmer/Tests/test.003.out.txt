@@ -1,0 +1,2 @@
+Meals left: veggies, bacon, chicken
+Meals eaten: 0

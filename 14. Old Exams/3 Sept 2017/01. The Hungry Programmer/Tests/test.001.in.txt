@@ -1,0 +1,7 @@
+['soup', 'spaghetti', 'eggs']
+Consume 0 2
+Eat
+Eat
+Shift 0 1
+End
+Eat

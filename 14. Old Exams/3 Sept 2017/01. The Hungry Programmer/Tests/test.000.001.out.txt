@@ -1,0 +1,4 @@
+eggs served!
+chicken eaten
+Meals left: steak
+Meals eaten: 1

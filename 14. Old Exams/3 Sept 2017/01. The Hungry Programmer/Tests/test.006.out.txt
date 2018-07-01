@@ -1,0 +1,4 @@
+bacon eaten
+eggs served!
+Meals left: veggies, chicken, turkey
+Meals eaten: 1

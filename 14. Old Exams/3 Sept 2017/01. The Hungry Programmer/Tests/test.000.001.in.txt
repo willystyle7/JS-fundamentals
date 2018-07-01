@@ -1,0 +1,5 @@
+['chicken', 'steak', 'eggs']
+Serve
+Eat
+End
+Consume 0 1

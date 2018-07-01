@@ -1,0 +1,3 @@
+['carrots', 'apple', 'beet']
+Consume 0 2
+End

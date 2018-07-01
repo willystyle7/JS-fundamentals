@@ -1,0 +1,3 @@
+42.234567 N
+23.432568 E
+Message:   let them eat cake!

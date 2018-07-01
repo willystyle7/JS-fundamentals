@@ -1,0 +1,6 @@
+['bacon', 'veggies', 'chicken', 'turkey', 'eggs']
+Shift 2 9
+Eat
+Serve
+End
+Serve

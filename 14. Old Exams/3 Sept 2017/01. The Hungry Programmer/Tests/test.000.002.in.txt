@@ -1,0 +1,5 @@
+['fries', 'fish', 'beer', 'chicken', 'beer', 'eggs']
+Add spaghetti
+Shift 0 1
+Consume 1 4
+End

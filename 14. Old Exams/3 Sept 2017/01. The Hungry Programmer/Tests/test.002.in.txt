@@ -1,0 +1,7 @@
+['rice', 'eggs', 'wine', 'beer', 'chicken']
+Eat
+Serve
+Serve
+Serve
+Add nuggets
+End

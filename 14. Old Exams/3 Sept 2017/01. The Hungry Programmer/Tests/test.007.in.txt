@@ -1,0 +1,8 @@
+[]
+Serve
+Eat
+Consume 0 0
+Add chicken
+Add rice
+Eat
+End

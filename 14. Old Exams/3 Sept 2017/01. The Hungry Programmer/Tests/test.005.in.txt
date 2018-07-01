@@ -1,0 +1,4 @@
+['bacon', 'veggies', 'chicken']
+Consume 2 9
+Eat
+End
