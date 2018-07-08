@@ -3,3 +3,4 @@ function printLetters([str]) {
         console.log(`str[${char}] -> ${str[char]}`)
     }
 }
+
