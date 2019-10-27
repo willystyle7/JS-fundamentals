@@ -1,0 +1,20 @@
+<input class="searchInput" type="text" />
+<p id="text">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum adipisci a
+    quia quas reiciendis. Consectetur excepturi iusto, corporis sapiente
+    cupiditate quae sequi nobis voluptatibus ullam cum suscipit quibusdam quo
+    maiores.
+</p>
+<script>
+    var searchInput = document.querySelector('.searchInput');
+    var text = document.querySelector('#text');
+    function displayMatches(e) {
+        var regex = new RegExp(e.target.value, 'gi');
+        var response = text.innerText.replace(regex, function(str) {
+            return "<span style='background-color: yellow;'>" + str + '</span>';
+        });
+        text.innerHTML = response;
+    }
+    searchInput.addEventListener('change', displayMatches);
+    searchInput.addEventListener('keyup', displayMatches);
+</script>
