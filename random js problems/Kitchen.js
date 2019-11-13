@@ -2,8 +2,8 @@ class Kitchen {
     constructor(budget) {
         this.budget = +budget;
         this.menu = {};
-        this.productsInStock = {}
-        this.actionsHistory = []
+        this.productsInStock = {};
+        this.actionsHistory = [];
     }
     loadProducts(products) {  //["product quantity price", ...
         let messageLog = []
