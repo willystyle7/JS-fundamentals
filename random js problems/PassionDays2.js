@@ -1,15 +1,15 @@
 function passionDays(input) {
-    let money = input.shift();
-    let moneyPrefix = '';
-    if (money.length > 15) {
-        moneyPrefix = money.substr(0, money.length - 15);
-        money = money.slice(-15);
-    }
-    money = Number(money);
+    let money = BigInt(input.shift());
+    // let moneyPrefix = '';
+    // if (money.length > 15) {
+    //     moneyPrefix = money.substr(0, money.length - 15);
+    //     money = money.slice(-15);
+    // }
+    // money = Number(money);
     let command = input.shift();
 
     let purchases = 0;
-    let price = 0.0;
+    let price = BigInt(0.0);
 
     while (command !== "mall.Enter") {
         command = input.shift();
@@ -23,23 +23,23 @@ function passionDays(input) {
             let action = command.charCodeAt(i);
 
             if (action >= 'A'.charCodeAt(0) && action <= 'Z'.charCodeAt(0)) {
-                price = 0.5 * action;
+                price = BigInt(0.5) * BigInt(action);
             }
             else if (action >= 'a'.charCodeAt(0) && action <= 'z'.charCodeAt(0)) {
-                price = 0.3 * action;
+                price = BigInt(0.3) * BigInt(action);
             }
             else if (action === '%'.charCodeAt(0)) {
-                price = money * 0.5;
+                price = money * BigInt(0.5);
             }
             else if (action === '*'.charCodeAt(0)) {
-                money += 10.0;
+                money += BigInt(10.0);
                 continue;
             }
             else {
-                price = action;
+                price = BigInt(action);
             }
 
-            if (price > money || money === 0) {
+            if (price > money || money === BigInt(0)) {
                 continue;
             }
 
@@ -51,9 +51,9 @@ function passionDays(input) {
     }
 
     if (purchases === 0) {
-        console.log(`No purchases. Money left: ${moneyPrefix + money.toFixed(2)} lv.`);
+        console.log(`No purchases. Money left: ${money.toFixed(2)} lv.`);
     } else {
-        console.log(`${purchases} purchases. Money left: ${moneyPrefix + money.toFixed(2)} lv.`);
+        console.log(`${purchases} purchases. Money left: ${money.toFixed(2)} lv.`);
     }
 }
 

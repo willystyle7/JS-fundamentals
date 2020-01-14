@@ -21,6 +21,22 @@
 
 // const isEven = n => n % 2 === 0;
 
-const isEven = n => !(n & 1);
+// const isEven = n => !(n & 1);
 
-console.log(isEven(53.01));
+// console.log(isEven(53.01));
+
+function fizzBuzz(n) {
+    for (let i = 0; i < n;) console.log((++i % 3 ? '' : 'Fizz') + (i % 5 ? '' : 'Buzz') || i);
+}
+
+function lastLetters(word) {
+    return word.slice(-2).split('').reverse().join(' ');
+}
+
+function arraySum(numbers) {
+    return numbers.reduce((a, b) => a + b, 0);
+}
+
+fizzBuzz(15);
+console.log(lastLetters('bat'));
+console.log(arraySum([3, 13, 4, 11, 9]));
