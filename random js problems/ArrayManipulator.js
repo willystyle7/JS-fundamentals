@@ -172,3 +172,38 @@ function solve3(arr, commands) {
     // console.log(newArr);
     console.log('[ ' + newArr.join(', ') + ' ]');
 }
+
+function manipulator(manArr, commands) {
+    for (let element of commands) {
+        element = element.split(` `);
+        let command = element.shift();
+        if (command === `add`){
+            manArr.splice(element[0], 0, Number(element[1]))
+        } else if (command === `addMany`) {
+            let index1 = element.shift();
+            element.reverse();
+            element.forEach(num => {
+                manArr.splice(index1, 0, Number(num));
+            });
+        } else if (command === `contains`) {
+            console.log(manArr.indexOf(Number(element[0])))
+        } else if (command === `remove`){
+            manArr.splice(Number(element[0]), 1);
+        } else if (command === `shift`){
+            for (let i = 0; i < element[0]; i++) {
+                let firstEl = manArr.shift();
+                manArr.push(firstEl);
+            }
+        } else if (command === `sumPairs`) {
+            let newArr = [];
+            for (let i = 0; i < manArr.length; i += 2) {
+                let sum = manArr[i] + (manArr[i+1] || 0);
+                newArr.push(sum);
+            }
+            manArr = newArr;
+        } else if (command === `print`) {
+            break;
+        }
+    }
+    console.log('[ ' + manArr.join(', ') + ' ]')
+}

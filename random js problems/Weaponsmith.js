@@ -11,18 +11,12 @@ function solve(arr) {
                 switch (position) {
                     case 'Left':
                         if (index > 0 && index < weaponNameParts.length) {
-                            // let temp = weaponNameParts[index - 1];
-                            // weaponNameParts[index - 1] = weaponNameParts[index];
-                            // weaponNameParts[index] = temp;
                             [weaponNameParts[index - 1], weaponNameParts[index]] = [weaponNameParts[index], weaponNameParts[index - 1]];
                             break;
                         }
                         break;
                     case 'Right':
                         if (index >= 0 && index < weaponNameParts.length - 1) {
-                            // let temp = weaponNameParts[index + 1];
-                            // weaponNameParts[index + 1] = weaponNameParts[index];
-                            // weaponNameParts[index] = temp;
                             [weaponNameParts[index + 1], weaponNameParts[index]] = [weaponNameParts[index], weaponNameParts[index + 1]];
                             break;
                         }
@@ -35,7 +29,7 @@ function solve(arr) {
                         console.log(weaponNameParts.filter((el, index) => index % 2 === 0).join(' '));
                         break;
                     case 'Odd':
-                            console.log(weaponNameParts.filter((el, index) => index % 2 !== 0).join(' '));
+                        console.log(weaponNameParts.filter((el, index) => index % 2 !== 0).join(' '));
                         break;
                 }
                 break;
@@ -54,3 +48,46 @@ solve([
     'Move Left 0',
     'Done'
 ]);
+
+function Weapon(input) {
+    let w = input.shift();
+    let weapon = w.split('|');
+    let command = input.shift();
+    while (command !== 'Done') {
+        let arrEvenOdd = [];
+        if (command.includes('Move Right')) {
+            let num = command.split(' ');
+            let indexR = +num[2];
+            if (indexR >= 0 && indexR < weapon.length - 1) {
+                let val = weapon[indexR + 1];
+                weapon[indexR + 1] = weapon[indexR];
+                weapon[indexR] = val;
+            }
+        } else if (command.includes('Move Left')) {
+            let num = command.split(' ');
+            let indexL = +num[2];
+            if (indexL > 0 && indexL < weapon.length) {
+                let val = weapon[indexL - 1];
+                weapon[indexL - 1] = weapon[indexL];
+                weapon[indexL] = val;
+            }
+        } else if (command.includes('Odd')) {
+            for (let k = 0; k < weapon.length; k++) {
+                if (k % 2 !== 0) {
+                    arrEvenOdd.push(weapon[k]);
+                }
+            }
+        } else if (command.includes('Even')) {
+            for (let k = 0; k < weapon.length; k++) {
+                if (k % 2 === 0) {
+                    arrEvenOdd.push(weapon[k]);
+                }
+            }
+        }
+        if (arrEvenOdd.length > 0) {
+            console.log(arrEvenOdd.join(' '));
+        }
+        command = input.shift();
+    }
+    console.log(`You crafted ${weapon.join('')}!`);
+}

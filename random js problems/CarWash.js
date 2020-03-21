@@ -45,7 +45,34 @@ function carWash3(input) {
         'vacuum cleaner': x => x + x * 0.25,
         mud: x => x - x * 0.1
     };
-    let value = input.reduce((acc, curr) => funcs[curr] && funcs[curr](acc) || acc, 0);
+    let value = input.reduce(
+        (acc, curr) => (funcs[curr] && funcs[curr](acc)) || acc,
+        0
+    );
     // let value = input.reduce((acc, curr) => funcs[curr](acc), 0);
     console.log(`The car is ${value.toFixed(2)}% clean.`);
+}
+
+function solve(input) {
+    let carWash = 0;
+    for (let i = 0; i < input.length; i++) {
+        let command = input[i];
+        let func = null;
+        switch (command) {
+            case 'soap':
+                func = a => a + 10;
+                break;
+            case 'water':
+                func = a => a + a * 0.2;
+                break;
+            case 'vacuum cleaner':
+                func = a => a + a * 0.25;
+                break;
+            case 'mud':
+                func = a => a - a * 0.1;
+                break;
+        }
+        carWash = func(carWash);
+    }
+    console.log(`The car is ${carWash.toFixed(2)}% clean.`);
 }
