@@ -46,7 +46,7 @@ const solution = arr => {
     return Object.values(missing)[0];
 };
 
-console.log(solution([1, 3, 6, 4, 1, 2]));
+console.log(solution2([1, 3, 6, 4, 1, 2]));
 console.log(solution([1, 2, 3]));
 console.log(solution([2, 3, 5, 1]));
 console.log(solution([-1, -3]));

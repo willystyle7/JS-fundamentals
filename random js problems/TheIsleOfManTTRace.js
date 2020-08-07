@@ -23,6 +23,10 @@ function solve2(arr) {
     }
 }
 
+// ATTENTION: this is not working READ !!! "Capturing Quantifiers and Quantifier Arithmetic"
+// let pattern = /([#$%*&])([A-z]+)\1=(\d+)!!(.{\q3})$/;
+
+
 function solve(arr){
     let pattern = /(#|\$|%|\*|&)(?<name>[A-Za-z]+)\1=(?<length>\d+)!!(?<code>.+)/;
     let decrypted ='';
