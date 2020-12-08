@@ -62,23 +62,73 @@ class Company {
 // c.addEmployee("Gosho", 1350, "HR", "Human resources");
 // console.log(c.bestDepartment());
 
-var assert = require('assert');
-const { isNull } = require('util');
-//let Company = result;
-let c = new Company();
+// var assert = require('assert');
+// const { isNull } = require('util');
+// //let Company = result;
+// let c = new Company();
 
-let actual1 = c.addEmployee('Stanimir', 2000, 'engineer', 'Human resources');
-let expected1 = 'New employee is hired. Name: Stanimir. Position: engineer';
-assert.equal(actual1, expected1);
+// let actual1 = c.addEmployee('Stanimir', 2000, 'engineer', 'Human resources');
+// let expected1 = 'New employee is hired. Name: Stanimir. Position: engineer';
+// assert.equal(actual1, expected1);
 
-c.addEmployee('Pesho', 1500, 'electrical engineer', 'Construction');
-c.addEmployee('Slavi', 500, 'dyer', 'Construction');
-c.addEmployee('Stan', 2000, 'architect', 'Construction');
-c.addEmployee('Stanimir', 1200, 'digital marketing manager', 'Marketing');
-c.addEmployee('Pesho', 1000, 'graphical designer', 'Marketing');
-c.addEmployee('Gosho', 1350, 'HR', 'Human resources');
+// c.addEmployee('Pesho', 1500, 'electrical engineer', 'Construction');
+// c.addEmployee('Slavi', 500, 'dyer', 'Construction');
+// c.addEmployee('Stan', 2000, 'architect', 'Construction');
+// c.addEmployee('Stanimir', 1200, 'digital marketing manager', 'Marketing');
+// c.addEmployee('Pesho', 1000, 'graphical designer', 'Marketing');
+// c.addEmployee('Gosho', 1350, 'HR', 'Human resources');
 
-let act = c.bestDepartment();
-let exp =
-    'Best Department is: Human resources\nAverage salary: 1675.00\nStanimir 2000 engineer\nGosho 1350 HR';
-assert.equal(act, exp);
+// let act = c.bestDepartment();
+// let exp =
+//     'Best Department is: Human resources\nAverage salary: 1675.00\nStanimir 2000 engineer\nGosho 1350 HR';
+// assert.equal(act, exp);
+
+
+class Company {
+    constructor() {
+        this.departments = [];
+    }
+
+    addEmployee(username, salary, position, department) {
+        if (!username || !position || !department || !salary || salary < 0) {
+        // if ([...arguments].some(a => a === null || a === undefined || a === '') || salary < 0) {
+            throw new Error("Invalid input!");
+        }
+
+        let newEmployee = {
+            username: username,
+            salary: Number(salary),
+            position: position
+        }
+
+        if (!this.departments[department]) {
+            this.departments[department] = [];
+        }
+        this.departments[department].push(newEmployee);
+        return `New employee is hired. Name: ${username}. Position: ${position}`;
+    }
+
+    bestDepartment() {
+        let department = '';
+        let maxSalary = -1;
+        Object.entries(this.departments).forEach(([key, value]) => {
+            let salary = 0;
+            value.forEach(e => {
+                salary += e.salary;
+            })
+            salary = salary / value.length;
+            if (salary >= maxSalary) {
+                department = key;
+                maxSalary = salary;
+            }
+        });
+        if (department != '') {
+            let res = `Best Department is: ${department}\nAverage salary: ${maxSalary.toFixed(2)}\n`;
+            Object.values(this.departments[department]).sort((a, b) => b.salary - a.salary || a.username.localeCompare(b.username)).forEach(e => {
+                let em = `${e.username} ${e.salary} ${e.position}\n`;
+                res += em;
+            })
+            return res.trim();
+        }
+    }
+}

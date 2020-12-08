@@ -38,7 +38,7 @@ console.log(JSON.stringify(result3));
 const distanceToNearestVowel3 = (str) => {
     const vowels = new Set(['a', 'i', 'u', 'e', 'o']);
     const vIndices = [];
-    const chars = Array.from(str);
+    const chars = Array.from(str.toLowerCase());
     chars.forEach((v, i) => {
         if (vowels.has(v)) {
             vIndices.push(i);
