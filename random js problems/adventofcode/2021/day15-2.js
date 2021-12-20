@@ -2,7 +2,6 @@
 // Using the full map (5x5), what is the lowest total risk of any path from the top left to the bottom right?
 
 function solve(arr) {
-    // TODO
     let initMatrix = arr.split('\n').map(r => r.split('').map(Number));
     let matrix = [];
     // multiply 5 times down
@@ -227,5 +226,5 @@ let arr1 =
 1684838399588648881327586957199874792142167832618795919593955245946215969749317899549939164939781974
 8283891211961198885189675761681423122591798322135234799979215759171724989419131318722297222491939131`;
 
-console.log(solve(arr1)); // ?
+console.log(solve(arr1)); // 2879 // too slow - see ver2 is much faster
 

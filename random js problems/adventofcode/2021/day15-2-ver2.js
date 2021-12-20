@@ -1,98 +1,80 @@
 // https://adventofcode.com
-// What is the lowest total risk of any path from the top left to the bottom right?
+// Using the full map (5x5), what is the lowest total risk of any path from the top left to the bottom right?
 
 function solve(arr) {
-    let matrix = arr.split('\n').map(r => r.split('').map(Number));
+    let initMatrix = arr.split('\n').map(r => r.split('').map(Number));
+    // prepare bigger x5 matrix
+    let matrix = [];
+    // multiply 5 times down
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < initMatrix.length; j++) {
+            matrix.push(initMatrix[j].map(el => (el + i) <= 9 ? (el + i) : (el + i - 9)));
+        }
+    }
+    // multiply 5 times left
+    for (let j = 0; j < matrix.length; j++) {
+        for (let i = 1; i < 5; i++) {
+            matrix[j] = matrix[j].concat(matrix[j].slice(0, initMatrix.length).map(el => (el + i) <= 9 ? (el + i) : (el + i - 9)));
+        }
+    }
+    // console.log(matrix.map(r => r.join('')));
 
-    // the graph
-    const graph = {};
-    const costs = {};
-    const parents = {};
-    for (let row = 0; row < matrix.length; row++) {
-        for (let col = 0; col < matrix[row].length; col++) {
-            let node = `${row},${col}`;
-            if (!(node in graph)) {
-                graph[node] = {};
-            }
-            if (col - 1 >= 0) {
-                let targetNode = `${row},${col - 1}`;
-                graph[node][targetNode] = matrix[row][col - 1];
-            }
-            if (col + 1 < matrix[row].length) {
-                let targetNode = `${row},${col + 1}`;
-                graph[node][targetNode] = matrix[row][col + 1];
-            }
-            if (row - 1 >= 0) {
-                let targetNode = `${row - 1},${col}`;
-                graph[node][targetNode] = matrix[row - 1][col];
-            }
-            if (row + 1 < matrix.length) {
-                let targetNode = `${row + 1},${col}`;
-                graph[node][targetNode] = matrix[row + 1][col];
-            }
-            costs[node] = Infinity;
-            parents[node] = null;
+    // Main program taken from book "Algorithms Notes for Professionals"
+
+    // imitate neghbourhood matrix (mapMatrix) aka Adjacency Matrix (because in our case it is too big)
+    function getDistance(i, j) {
+        let iRow = Math.floor(i / matrix[0].length);
+        let iCol = i % matrix[0].length;
+        let jRow = Math.floor(j / matrix[0].length);
+        let jCol = j % matrix[0].length;
+        if (((iRow === jRow) && (iCol === jCol - 1 || iCol === jCol + 1))
+            || ((iCol === jCol) && (iRow === jRow - 1 || iRow === jRow + 1))) { // adjacent nodes
+            return matrix[jRow][jCol];
+        } else {
+            return 0;
         }
     }
 
-    // the costs table
-    delete costs['0,0'];
-    costs['0,1'] = matrix[0][1];
-    costs['1,0'] = matrix[1][0];
+    let nodeCount = matrix.length * matrix[0].length;
+    // console.log(nodeCount);
 
-    // the parents table
-    delete parents['0,0'];
-    parents['0,1'] = '0,0';
-    parents['1,0'] = '0,0';
+    // prepare helper arrays
+    let distance = [];
+    let visitedNodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+        distance[i] = Infinity;
+        visitedNodes[i] = false;
+    }
+    // start node is 0
+    distance[0] = 0;
 
-    let processed = [];
-
-    function findLowestCostNode(costs) {
-        let lowestCost = Infinity;
-        let lowestCostNode = null;
-
-        // Go through each node
-        for (let node in costs) {
-            const cost = costs[node];
-            // If it's the lowest cost so far and hasn't been processed yet...
-            if (cost < lowestCost && processed.indexOf(node) === -1) {
-                // ... set it as the new lowest-cost node.
-                lowestCost = cost;
-                lowestCostNode = node;
+    // Dijkstra algorithm
+    for (let count = 0; count < nodeCount - 1; count++) {
+        // find min distance
+        let min = Infinity;
+        let minIndex = -1;
+        for (let i = 0; i < nodeCount; i++) {
+            if (visitedNodes[i] === false && distance[i] < min) {
+                min = distance[i];
+                minIndex = i;
             }
         }
-        return lowestCostNode;
-    }
-
-    let node = findLowestCostNode(costs);
-
-    while (node !== null) {
-        const cost = costs[node];
-        // Go through all the neighbors of this node
-        const neighbors = graph[node];
-        Object.keys(neighbors).forEach(function (n) {
-            const new_cost = cost + neighbors[n];
-            // If it's cheaper to get to this neighbor by going through this node
-            if (costs[n] > new_cost) {
-                // ... update the cost for this node
-                costs[n] = new_cost;
-                // This node becomes the new parent for this neighbor.
-                parents[n] = node;
+        visitedNodes[minIndex] = true;
+        // iterate
+        for (let j = 0; j < nodeCount; j++) {
+            let dist = getDistance(minIndex, j);
+            if (!visitedNodes[j]
+                && dist !== 0
+                && distance[minIndex] !== Infinity
+                && distance[j] > distance[minIndex] + dist) {
+                // change min distance
+                distance[j] = distance[minIndex] + dist;
             }
-        });
-
-        // Mark the node as processed
-        processed = processed.concat(node);
-
-        // Find the next node to process, and loop
-        node = findLowestCostNode(costs);
+        }
     }
 
-    // console.log('Cost from the start to each node:');
-    // console.log(costs);
-
-    let final = `${matrix.length - 1},${matrix[0].length - 1}`;
-    return(costs[final]);
+    // return path to last element
+    return distance[nodeCount - 1];
 }
 
 let arr =
@@ -107,7 +89,7 @@ let arr =
 1293138521
 2311944581`;
 
-console.log(solve(arr)); // 40
+console.log(solve(arr)); // 315
 
 let arr1 =
 `9117126765954991531361287887952293985228945954968719768599113229933177321218646689996911474536732399
@@ -211,5 +193,5 @@ let arr1 =
 1684838399588648881327586957199874792142167832618795919593955245946215969749317899549939164939781974
 8283891211961198885189675761681423122591798322135234799979215759171724989419131318722297222491939131`;
 
-console.log(solve(arr1)); // 540
+console.log(solve(arr1)); // 2879
 
