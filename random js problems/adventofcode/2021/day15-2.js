@@ -1,4 +1,4 @@
-// https://adventofcode.com
+// https://adventofcode.com // Dijkstra algorithm
 // Using the full map (5x5), what is the lowest total risk of any path from the top left to the bottom right?
 
 function solve(arr) {

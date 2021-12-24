@@ -19,7 +19,7 @@ function solve(arr) {
     }
     // console.log(matrix.map(r => r.join('')));
 
-    // Main program taken from book "Algorithms Notes for Professionals"
+    // Main program taken from book "Algorithms Notes for Professionals" - Dijkstra algorithm
 
     // imitate neghbourhood matrix (mapMatrix) aka Adjacency Matrix (because in our case it is too big)
     function getDistance(i, j) {

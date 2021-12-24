@@ -1,4 +1,4 @@
-// https://adventofcode.com
+// https://adventofcode.com // Dijkstra algorithm
 // What is the lowest total risk of any path from the top left to the bottom right?
 
 function solve(arr) {
