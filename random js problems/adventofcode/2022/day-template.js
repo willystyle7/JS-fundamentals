@@ -1,15 +1,15 @@
 // https://adventofcode.com
 // TODO description
 
-function solve(arr) {
+function solve(input) {
     // TODO
 }
 
-let arr = [];
+let input = ``;
 
-console.log(solve(arr)); // ?
+console.log(solve(input)); // ?
 
-let arr1 = [];
+let input1 = ``;
 
-console.log(solve(arr1)); // ?
+console.log(solve(input1)); // ?
 
