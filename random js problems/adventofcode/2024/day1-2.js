@@ -1035,5 +1035,5 @@ let input1 = `88159   51481
 21910   29845
 38235   16463`;
 
-console.log(solve(input1)); // ?
+console.log(solve(input1)); // 20351745
 
